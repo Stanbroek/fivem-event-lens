@@ -1,0 +1,30 @@
+{
+    "Lua.workspace.useGitIgnore": true,
+    "Lua.workspace.preloadFileSize": 5000,
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.workspace.library": [
+        "D:/Documents/Grand_Theft_Auto_V/Modding/fivem-typings/lua/citizenfx-client",
+        "D:/Documents/Grand_Theft_Auto V/Modding/fivem-typings/lua/citizenfx-server",
+        "C:/Users/Stan/AppData/Local/FiveM/FiveM.app/citizen/scripting/lua"
+    ],
+    "Lua.diagnostics.libraryFiles": "Disable",
+    "Lua.diagnostics.disable": [
+        "undefined-global",
+        "lowercase-global"
+    ],
+    "Lua.IntelliSense.traceLocalSet": true,
+    "Lua.IntelliSense.traceReturn": true,
+    "Lua.IntelliSense.traceBeSetted": true,
+    "Lua.IntelliSense.traceFieldInject": true,
+    "Lua.runtime.version": "Lua 5.4",
+    "Lua.runtime.nonstandardSymbol": [
+        "+=",
+        "-=",
+        "*=",
+        "/=",
+        "`",
+    ],
+    "Lua.semantic.enable": false,
+    "Lua.telemetry.enable": false,
+    "Lua.completion.autoRequire": false
+}

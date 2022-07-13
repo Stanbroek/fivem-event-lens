@@ -1,0 +1,195 @@
+{
+	"name": "fivem-event-lens",
+	"displayName": "FiveM Event Lens",
+	"description": "Code lenses for FiveM events.",
+	"publisher": "stanbroek",
+	"icon": "images/extension-icon.png",
+	"author": {
+		"name": "Stanbroek",
+		"url": "https://github.com/Stanbroek"
+	},
+	"version": "0.0.3",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Stanbroek/fivem-event-lens.git"
+	},
+	"homepage": "https://github.com/Stanbroek/fivem-event-lens",
+	"engines": {
+		"vscode": "^1.68.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:fivem-event-lens.reload-file",
+		"onCommand:fivem-event-lens.reload-workspace",
+		"workspaceContains:resources/**/fxmanifest.lua",
+		"workspaceContains:resources/**/__resource.lua"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "fivem-event-lens.reload-file",
+				"title": "Reload FiveM event lens in current file"
+			},
+			{
+				"command": "fivem-event-lens.reload-workspace",
+				"title": "Reload FiveM event lens in current workspace"
+			},
+			{
+				"command": "fivem-event-lens.test",
+				"title": "Test FiveM event lens stuff"
+			}
+		],
+		"configuration": [
+			{
+				"title": "FiveM Event Lens",
+				"properties": {
+					"fivem-event-lens.document-exclude-globs": {
+						"type": "array",
+						"default": [
+							"**/node_modules/**",
+							"**/build/**",
+							"**/dist/**",
+							"**/out/**",
+							"**/html/**",
+							"**/__resource.lua",
+							"**/fxmanifest.lua"
+						],
+						"items": {
+							"type": "string"
+						},
+						"uniqueItems": true,
+						"markdownDescription": "List of globs to exclude in file discovery.",
+						"scope": "window"
+					},
+					"fivem-event-lens.grammar-extensions": {
+						"type": "array",
+						"default": [
+							"vscode.lua",
+							"vscode.javascript",
+							"vscode.typescript"
+						],
+						"items": {
+							"type": "string"
+						},
+						"uniqueItems": true,
+						"markdownDescription": "List of grammar extensions to use.",
+						"scope": "window"
+					},
+					"fivem-event-lens.events": {
+						"type": "array",
+						"default": [
+							{
+								"languageId": "lua",
+								"eventTriggers": [
+									"TriggerEvent",
+									"TriggerClientEvent",
+									"TriggerServerEvent"
+								],
+								"eventListeners": [
+									"AddEventHandler",
+									"RegisterNetEvent"
+								]
+							},
+							{
+								"languageId": "javascript",
+								"eventTriggers": [
+									"emit",
+									"emitNet"
+								],
+								"eventListeners": [
+									"on",
+									"onNet"
+								]
+							}
+						],
+						"items": {
+							"type": "object",
+							"properties": {
+								"languageId": {
+									"type": "string"
+								},
+								"eventTriggers": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									},
+									"uniqueItems": true
+								},
+								"eventListeners": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									},
+									"uniqueItems": true
+								}
+							}
+						},
+						"uniqueItems": true,
+						"markdownDescription": "List of events to track per language.",
+						"scope": "window"
+					},
+					"fivem-event-lens.events-regex": {
+						"type": "object",
+						"default": {
+							"regex": "(^| |\\t)({EVENTS})\\((\\'.+?(?<!\\\\)\\'|\\\".+?(?<!\\\\)\\\")\\s*,",
+							"functionNameIndex": 2,
+							"eventNameIndex": 3
+						},
+						"properties": {
+							"regex": {
+								"type": "string"
+							},
+							"functionNameIndex": {
+								"type": "number"
+							},
+							"eventNameIndex": {
+								"type": "number"
+							}
+						},
+						"markdownDescription": "Regex for parsing events.",
+						"scope": "window"
+					},
+					"fivem-event-lens.max-file-size": {
+						"type": "number",
+						"default": "100000",
+						"markdownDescription": "Maximum file size of files to parse in the initial discovery.",
+						"scope": "window"
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"pretest": "yarn run compile && yarn run lint",
+		"lint": "eslint src --ext ts"
+	},
+	"dependencies": {
+		"await-lock": "^2.2.2",
+		"vscode-oniguruma": "^1.6.2",
+		"vscode-textmate": "^7.0.1"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "16.x",
+		"@types/vscode": "^1.68.0",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"@vscode/test-electron": "^2.1.3",
+		"eslint": "^8.16.0",
+		"glob": "^8.0.3",
+		"mocha": "^10.0.0",
+		"terser-webpack-plugin": "^5.3.3",
+		"ts-loader": "^9.3.0",
+		"typescript": "^4.7.2",
+		"webpack": "^5.72.1",
+		"webpack-cli": "^4.9.2"
+	}
+}
